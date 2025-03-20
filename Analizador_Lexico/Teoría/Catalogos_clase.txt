@@ -1,0 +1,126 @@
+Identificadores
+
+Clase 0
+
+Palabras Resrvadas (en español)
+
+1. Importar (para librerías) <-Descartado de momento (Se realiza en la etapa del Parser)
+2. Ent (Declaración de enteros)
+3. Ver (Declaración de valores verdaderos)
+4. Fals (Para valores falsos)
+5. Nulo (Para valores nulos) <- Solo en cadenas
+6. Clase (Definir clases)
+7. Hilo (Para hilos)
+8. Parar (Para detener ejecución) <- Equivalente (break)
+9. Continuar (Para continuar ejecución)
+10. Flota (Declaración de valores flotantes)
+11. Global (Declaración de constantes globales)
+12. Define (Para definir)
+13. Devo (Para devolver)
+14. Excep (Para excepciones)
+15. Cade (Declaración de cadenas)
+16. Bool (Declaración Booleana)
+17. Si (Condicional simple, equivalente if)
+18. Sino (Condicional múltiple, equivalente else)
+19. Mientras (Equivalente a ciclo while)
+20. Para (Equivalente a ciclo for)
+21. Haz (Palabra do)
+
+Clase 1
+
+Símbolos Especiales
+
+Símbolo Antiguo:
+(
+)
+[
+]
+{
+}
+;
+,
+.
+
+Símbolo Nuevo
+<
+>
+<<
+>>
+#
+#!
+*
+|
+°
+
+Clase 2
+- Debe de empezar por @.
+- Conjunto de caracteres de [a-z], mayúsculas o minúsculas.
+- Los vocales pueden ir acentuadas, mayúsculas o minúsculas. 
+- Números del 0 al 9.
+- Debe de tener un guión bajo al final.
+- Puede contener ñ o Ñ.
+
+Clase 3
+
+Operadores aritméticos
+
+Suma -> a sum b
+
+Clase 4
+Operadores Relacionales
+
+h - Mayor que
+m - Menor que
+e - Igual que
+c - Diferente de 
+he - Mayor o Igual
+me - Menor o Igual
+
+Clase 5
+Operadores de asignación
+
+-> Asignación Simple
++-> Suma y asignación
+--> Resta y asignación
+*-> Multiplicación y asignación
+/-> División y asignación
+%-> Módulo y asignación
+>>-> Desplazamiento a la derecha y asignación
+<<-> Desplazamiento a la izquierda y asignación
+^-> Exponente y asignación
+&-> Concatenación y asignación
+
+Clase 6
+
+Identifica cadenas al Iniciar con -- y 
+terminar con --
+
+Puede contener cualquier carácter dentro de la cadena.
+
+Clase 7
+
+Constantes Enteros
+
+- No pueden iniciar con 0 si son dos o más dígitos decimales.
+- Pueden tener o no signos + y -.
+
+Se pueden definir constantes numéricas con números romanos, 
+colocando un @ al inicio de la definición. Ejemplo: @IV = 4.
+
+Por defecto una constante usa 32 bits, pero se puede recortar
+a 8 con "p" al final o extender a 64 con "g".
+
+Clase 8
+
+Para un número real escribimos la parte fraccionaria después de comilla simple.
+
+Para escribir un número sin parte fraccionaria podemos usar 
+
+XXX'Ø 0
+XXXr 0
+XXXR 
+
+Ejemplos: 
+123'56
+  1R
+220Ør
