@@ -1,0 +1,83 @@
+-- Este es un archivo de prueba para el analizador léxico --
+
+-- Identificadores --
+@miVariable
+@otraVariable
+@variable123
+@áéíóúñ
+
+-- Palabras reservadas --
+Bool
+Cade
+Continuar
+Devo
+Ent
+Fals
+Flota
+Global
+Haz
+Mientras
+Nulo
+Para
+Parar
+Si
+Sino
+Ver
+
+-- Operadores aritméticos --
+sum
+rest
+mult
+div
+mod
+inc
+dec
+exp
+dive
+
+-- Operadores relacionales --
+h
+m
+e
+c
+he
+me
+
+-- Operadores de asignación --
+->
++->
+-->
+*->
+/->
+%->
+>>
+<<
+^->
+&->
+
+-- Literales numéricos --
+123
+45.67
+-89
++3.14
+0
+
+-- Literales de cadena --
+"--Hola, mundo--"
+"--Este es un literal de cadena--"
+
+-- Símbolos especiales --
+<
+>
+<<
+>>
+#
+#!
+*
+|
+°
+
+-- Comentarios --
+[Este es un comentario de una línea]
+[Este es otro comentario
+que abarca varias líneas]
