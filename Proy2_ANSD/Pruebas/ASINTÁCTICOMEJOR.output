@@ -1,0 +1,1782 @@
+Terminals unused in grammar
+
+    ATOM_OPREL
+
+
+Grammar
+
+    0 $accept: programa $end
+
+    1 programa: list_dec_glob func otra_func
+
+    2 list_dec_glob: dec_global list_dec_glob
+    3              | ε
+
+    4 dec_global: ATOM_GLOBAL tipo ATOM_ID list_id ATOM_PUNTO_COMA
+
+    5 tipo: ATOM_BOOL
+    6     | ATOM_CADE
+    7     | ATOM_ENT
+    8     | ATOM_FLOTA
+
+    9 list_id: ATOM_COMA ATOM_ID list_id
+   10        | ε
+
+   11 func: tipo ATOM_ID ATOM_PAR_IZQ arg ATOM_PAR_DER ATOM_COR_IZQ cuerpo ATOM_COR_DER
+
+   12 otra_func: func otra_func
+   13          | ε
+
+   14 arg: tipo ATOM_ID list_arg
+
+   15 list_arg: ATOM_COMA arg
+   16         | ε
+
+   17 cuerpo: lista_dec lista_sent
+
+   18 lista_dec: dec_global lista_dec
+   19          | ε
+
+   20 lista_sent: sent lista_sent
+   21           | ε
+
+   22 sent: asig
+   23     | haz_mientras
+   24     | si
+   25     | para
+   26     | dev
+   27     | ATOM_CONTINUAR ATOM_PUNTO
+   28     | ATOM_PARAR ATOM_PUNTO
+
+   29 asig: ATOM_ID op_asig ATOM_PUNTO_COMA
+
+   30 op_asig: op_asig_simple expr_gral
+   31        | op_asig_comp expr_gral
+
+   32 op_asig_simple: ATOM_ASIG
+
+   33 op_asig_comp: ATOM_OPASIG
+
+   34 expr_gral: ATOM_CADENA
+   35          | ATOM_FALS
+   36          | ATOM_VER
+   37          | ATOM_NULO
+   38          | expr
+
+   39 expr: term expr_prime
+
+   40 expr_prime: '+' term expr_prime
+   41           | '-' term expr_prime
+   42           | ε
+
+   43 term: factor term_prime
+
+   44 term_prime: '*' factor term_prime
+   45           | '/' factor term_prime
+   46           | '%' factor term_prime
+   47           | '~' factor term_prime
+   48           | 'k' factor term_prime
+   49           | ε
+
+   50 factor: ATOM_PAR_IZQ expr ATOM_PAR_DER
+   51       | ATOM_ID factor_prime
+   52       | ATOM_ENTERO
+   53       | ATOM_REAL
+   54       | llama_func
+
+   55 factor_prime: ATOM_INC
+   56             | ATOM_DEC
+
+   57 llama_func: ATOM_LLAVE_IZQ ATOM_ID ATOM_PAR_IZQ list_param ATOM_PAR_DER ATOM_LLAVE_DER
+
+   58 list_param: expr_gral param
+   59           | ε
+
+   60 param: ATOM_COMA expr_gral param
+   61      | ε
+
+   62 exp_rel: expr op_rel expr
+
+   63 op_rel: '>'
+   64       | '<'
+   65       | 'i'
+   66       | '!'
+   67       | 'x'
+   68       | 'y'
+
+   69 haz_mientras: ATOM_HAZ ATOM_COR_IZQ lista_sent ATOM_COR_DER ATOM_MIENTRAS ATOM_PAR_IZQ exp_rel ATOM_PAR_DER
+
+   70 si: ATOM_SI ATOM_PAR_IZQ exp_rel ATOM_PAR_DER ATOM_COR_IZQ lista_sent ATOM_COR_DER sino
+
+   71 sino: ATOM_SINO ATOM_COR_IZQ lista_sent ATOM_COR_DER
+   72     | ε
+
+   73 para: ATOM_PARA ATOM_PAR_IZQ expr ATOM_PAR_DER ATOM_COR_IZQ lista_sent ATOM_COR_DER
+
+   74 dev: ATOM_DEV ATOM_PAR_IZQ val_ret ATOM_PAR_DER ATOM_PUNTO
+
+   75 val_ret: expr_gral
+   76        | ε
+
+
+Terminals, with rules where they appear
+
+    $end (0) 0
+    '!' (33) 66
+    '%' (37) 46
+    '*' (42) 44
+    '+' (43) 40
+    '-' (45) 41
+    '/' (47) 45
+    '<' (60) 64
+    '>' (62) 63
+    'i' (105) 65
+    'k' (107) 48
+    'x' (120) 67
+    'y' (121) 68
+    '~' (126) 47
+    error (256)
+    ATOM_BOOL <atom> (258) 5
+    ATOM_CADE <atom> (259) 6
+    ATOM_ENT <atom> (260) 7
+    ATOM_FLOTA <atom> (261) 8
+    ATOM_ID <atom> (262) 4 9 11 14 29 51 57
+    ATOM_ASIG <atom> (263) 32
+    ATOM_OPASIG <atom> (264) 33
+    ATOM_PUNTO_COMA <atom> (265) 4 29
+    ATOM_COMA <atom> (266) 9 15 60
+    ATOM_PAR_IZQ <atom> (267) 11 50 57 69 70 73 74
+    ATOM_PAR_DER <atom> (268) 11 50 57 69 70 73 74
+    ATOM_COR_IZQ <atom> (269) 11 69 70 71 73
+    ATOM_COR_DER <atom> (270) 11 69 70 71 73
+    ATOM_LLAVE_IZQ <atom> (271) 57
+    ATOM_LLAVE_DER <atom> (272) 57
+    ATOM_OPREL <atom> (273)
+    ATOM_GLOBAL <atom> (274) 4
+    ATOM_HAZ <atom> (275) 69
+    ATOM_MIENTRAS <atom> (276) 69
+    ATOM_SI <atom> (277) 70
+    ATOM_SINO <atom> (278) 71
+    ATOM_PARA <atom> (279) 73
+    ATOM_DEV <atom> (280) 74
+    ATOM_CONTINUAR <atom> (281) 27
+    ATOM_PARAR <atom> (282) 28
+    ATOM_CADENA <atom> (283) 34
+    ATOM_FALS <atom> (284) 35
+    ATOM_VER <atom> (285) 36
+    ATOM_NULO <atom> (286) 37
+    ATOM_ENTERO <atom> (287) 52
+    ATOM_REAL <atom> (288) 53
+    ATOM_INC <atom> (289) 55
+    ATOM_DEC <atom> (290) 56
+    ATOM_PUNTO <atom> (291) 27 28 74
+
+
+Nonterminals, with rules where they appear
+
+    $accept (50)
+        on left: 0
+    programa <atom> (51)
+        on left: 1
+        on right: 0
+    list_dec_glob <atom> (52)
+        on left: 2 3
+        on right: 1 2
+    dec_global <atom> (53)
+        on left: 4
+        on right: 2 18
+    tipo <atom> (54)
+        on left: 5 6 7 8
+        on right: 4 11 14
+    list_id <atom> (55)
+        on left: 9 10
+        on right: 4 9
+    func <atom> (56)
+        on left: 11
+        on right: 1 12
+    otra_func <atom> (57)
+        on left: 12 13
+        on right: 1 12
+    arg <atom> (58)
+        on left: 14
+        on right: 11 15
+    list_arg <atom> (59)
+        on left: 15 16
+        on right: 14
+    cuerpo <atom> (60)
+        on left: 17
+        on right: 11
+    lista_dec <atom> (61)
+        on left: 18 19
+        on right: 17 18
+    lista_sent <atom> (62)
+        on left: 20 21
+        on right: 17 20 69 70 71 73
+    sent <atom> (63)
+        on left: 22 23 24 25 26 27 28
+        on right: 20
+    asig <atom> (64)
+        on left: 29
+        on right: 22
+    op_asig <atom> (65)
+        on left: 30 31
+        on right: 29
+    op_asig_simple <atom> (66)
+        on left: 32
+        on right: 30
+    op_asig_comp <atom> (67)
+        on left: 33
+        on right: 31
+    expr_gral <atom> (68)
+        on left: 34 35 36 37 38
+        on right: 30 31 58 60 75
+    expr <atom> (69)
+        on left: 39
+        on right: 38 50 62 73
+    expr_prime <atom> (70)
+        on left: 40 41 42
+        on right: 39 40 41
+    term <atom> (71)
+        on left: 43
+        on right: 39 40 41
+    term_prime <atom> (72)
+        on left: 44 45 46 47 48 49
+        on right: 43 44 45 46 47 48
+    factor <atom> (73)
+        on left: 50 51 52 53 54
+        on right: 43 44 45 46 47 48
+    factor_prime <atom> (74)
+        on left: 55 56
+        on right: 51
+    llama_func <atom> (75)
+        on left: 57
+        on right: 54
+    list_param <atom> (76)
+        on left: 58 59
+        on right: 57
+    param <atom> (77)
+        on left: 60 61
+        on right: 58 60
+    exp_rel <atom> (78)
+        on left: 62
+        on right: 69 70
+    op_rel <atom> (79)
+        on left: 63 64 65 66 67 68
+        on right: 62
+    haz_mientras <atom> (80)
+        on left: 69
+        on right: 23
+    si <atom> (81)
+        on left: 70
+        on right: 24
+    sino <atom> (82)
+        on left: 71 72
+        on right: 70
+    para <atom> (83)
+        on left: 73
+        on right: 25
+    dev <atom> (84)
+        on left: 74
+        on right: 26
+    val_ret <atom> (85)
+        on left: 75 76
+        on right: 74
+
+
+State 0
+
+    0 $accept: • programa $end
+
+    ATOM_GLOBAL  shift, and go to state 1
+
+    $default  reduce using rule 3 (list_dec_glob)
+
+    programa       go to state 2
+    list_dec_glob  go to state 3
+    dec_global     go to state 4
+
+
+State 1
+
+    4 dec_global: ATOM_GLOBAL • tipo ATOM_ID list_id ATOM_PUNTO_COMA
+
+    ATOM_BOOL   shift, and go to state 5
+    ATOM_CADE   shift, and go to state 6
+    ATOM_ENT    shift, and go to state 7
+    ATOM_FLOTA  shift, and go to state 8
+
+    tipo  go to state 9
+
+
+State 2
+
+    0 $accept: programa • $end
+
+    $end  shift, and go to state 10
+
+
+State 3
+
+    1 programa: list_dec_glob • func otra_func
+
+    ATOM_BOOL   shift, and go to state 5
+    ATOM_CADE   shift, and go to state 6
+    ATOM_ENT    shift, and go to state 7
+    ATOM_FLOTA  shift, and go to state 8
+
+    tipo  go to state 11
+    func  go to state 12
+
+
+State 4
+
+    2 list_dec_glob: dec_global • list_dec_glob
+
+    ATOM_GLOBAL  shift, and go to state 1
+
+    $default  reduce using rule 3 (list_dec_glob)
+
+    list_dec_glob  go to state 13
+    dec_global     go to state 4
+
+
+State 5
+
+    5 tipo: ATOM_BOOL •
+
+    $default  reduce using rule 5 (tipo)
+
+
+State 6
+
+    6 tipo: ATOM_CADE •
+
+    $default  reduce using rule 6 (tipo)
+
+
+State 7
+
+    7 tipo: ATOM_ENT •
+
+    $default  reduce using rule 7 (tipo)
+
+
+State 8
+
+    8 tipo: ATOM_FLOTA •
+
+    $default  reduce using rule 8 (tipo)
+
+
+State 9
+
+    4 dec_global: ATOM_GLOBAL tipo • ATOM_ID list_id ATOM_PUNTO_COMA
+
+    ATOM_ID  shift, and go to state 14
+
+
+State 10
+
+    0 $accept: programa $end •
+
+    $default  accept
+
+
+State 11
+
+   11 func: tipo • ATOM_ID ATOM_PAR_IZQ arg ATOM_PAR_DER ATOM_COR_IZQ cuerpo ATOM_COR_DER
+
+    ATOM_ID  shift, and go to state 15
+
+
+State 12
+
+    1 programa: list_dec_glob func • otra_func
+
+    ATOM_BOOL   shift, and go to state 5
+    ATOM_CADE   shift, and go to state 6
+    ATOM_ENT    shift, and go to state 7
+    ATOM_FLOTA  shift, and go to state 8
+
+    $default  reduce using rule 13 (otra_func)
+
+    tipo       go to state 11
+    func       go to state 16
+    otra_func  go to state 17
+
+
+State 13
+
+    2 list_dec_glob: dec_global list_dec_glob •
+
+    $default  reduce using rule 2 (list_dec_glob)
+
+
+State 14
+
+    4 dec_global: ATOM_GLOBAL tipo ATOM_ID • list_id ATOM_PUNTO_COMA
+
+    ATOM_COMA  shift, and go to state 18
+
+    $default  reduce using rule 10 (list_id)
+
+    list_id  go to state 19
+
+
+State 15
+
+   11 func: tipo ATOM_ID • ATOM_PAR_IZQ arg ATOM_PAR_DER ATOM_COR_IZQ cuerpo ATOM_COR_DER
+
+    ATOM_PAR_IZQ  shift, and go to state 20
+
+
+State 16
+
+   12 otra_func: func • otra_func
+
+    ATOM_BOOL   shift, and go to state 5
+    ATOM_CADE   shift, and go to state 6
+    ATOM_ENT    shift, and go to state 7
+    ATOM_FLOTA  shift, and go to state 8
+
+    $default  reduce using rule 13 (otra_func)
+
+    tipo       go to state 11
+    func       go to state 16
+    otra_func  go to state 21
+
+
+State 17
+
+    1 programa: list_dec_glob func otra_func •
+
+    $default  reduce using rule 1 (programa)
+
+
+State 18
+
+    9 list_id: ATOM_COMA • ATOM_ID list_id
+
+    ATOM_ID  shift, and go to state 22
+
+
+State 19
+
+    4 dec_global: ATOM_GLOBAL tipo ATOM_ID list_id • ATOM_PUNTO_COMA
+
+    ATOM_PUNTO_COMA  shift, and go to state 23
+
+
+State 20
+
+   11 func: tipo ATOM_ID ATOM_PAR_IZQ • arg ATOM_PAR_DER ATOM_COR_IZQ cuerpo ATOM_COR_DER
+
+    ATOM_BOOL   shift, and go to state 5
+    ATOM_CADE   shift, and go to state 6
+    ATOM_ENT    shift, and go to state 7
+    ATOM_FLOTA  shift, and go to state 8
+
+    tipo  go to state 24
+    arg   go to state 25
+
+
+State 21
+
+   12 otra_func: func otra_func •
+
+    $default  reduce using rule 12 (otra_func)
+
+
+State 22
+
+    9 list_id: ATOM_COMA ATOM_ID • list_id
+
+    ATOM_COMA  shift, and go to state 18
+
+    $default  reduce using rule 10 (list_id)
+
+    list_id  go to state 26
+
+
+State 23
+
+    4 dec_global: ATOM_GLOBAL tipo ATOM_ID list_id ATOM_PUNTO_COMA •
+
+    $default  reduce using rule 4 (dec_global)
+
+
+State 24
+
+   14 arg: tipo • ATOM_ID list_arg
+
+    ATOM_ID  shift, and go to state 27
+
+
+State 25
+
+   11 func: tipo ATOM_ID ATOM_PAR_IZQ arg • ATOM_PAR_DER ATOM_COR_IZQ cuerpo ATOM_COR_DER
+
+    ATOM_PAR_DER  shift, and go to state 28
+
+
+State 26
+
+    9 list_id: ATOM_COMA ATOM_ID list_id •
+
+    $default  reduce using rule 9 (list_id)
+
+
+State 27
+
+   14 arg: tipo ATOM_ID • list_arg
+
+    ATOM_COMA  shift, and go to state 29
+
+    $default  reduce using rule 16 (list_arg)
+
+    list_arg  go to state 30
+
+
+State 28
+
+   11 func: tipo ATOM_ID ATOM_PAR_IZQ arg ATOM_PAR_DER • ATOM_COR_IZQ cuerpo ATOM_COR_DER
+
+    ATOM_COR_IZQ  shift, and go to state 31
+
+
+State 29
+
+   15 list_arg: ATOM_COMA • arg
+
+    ATOM_BOOL   shift, and go to state 5
+    ATOM_CADE   shift, and go to state 6
+    ATOM_ENT    shift, and go to state 7
+    ATOM_FLOTA  shift, and go to state 8
+
+    tipo  go to state 24
+    arg   go to state 32
+
+
+State 30
+
+   14 arg: tipo ATOM_ID list_arg •
+
+    $default  reduce using rule 14 (arg)
+
+
+State 31
+
+   11 func: tipo ATOM_ID ATOM_PAR_IZQ arg ATOM_PAR_DER ATOM_COR_IZQ • cuerpo ATOM_COR_DER
+
+    ATOM_GLOBAL  shift, and go to state 1
+
+    $default  reduce using rule 19 (lista_dec)
+
+    dec_global  go to state 33
+    cuerpo      go to state 34
+    lista_dec   go to state 35
+
+
+State 32
+
+   15 list_arg: ATOM_COMA arg •
+
+    $default  reduce using rule 15 (list_arg)
+
+
+State 33
+
+   18 lista_dec: dec_global • lista_dec
+
+    ATOM_GLOBAL  shift, and go to state 1
+
+    $default  reduce using rule 19 (lista_dec)
+
+    dec_global  go to state 33
+    lista_dec   go to state 36
+
+
+State 34
+
+   11 func: tipo ATOM_ID ATOM_PAR_IZQ arg ATOM_PAR_DER ATOM_COR_IZQ cuerpo • ATOM_COR_DER
+
+    ATOM_COR_DER  shift, and go to state 37
+
+
+State 35
+
+   17 cuerpo: lista_dec • lista_sent
+
+    ATOM_ID         shift, and go to state 38
+    ATOM_HAZ        shift, and go to state 39
+    ATOM_SI         shift, and go to state 40
+    ATOM_PARA       shift, and go to state 41
+    ATOM_DEV        shift, and go to state 42
+    ATOM_CONTINUAR  shift, and go to state 43
+    ATOM_PARAR      shift, and go to state 44
+
+    $default  reduce using rule 21 (lista_sent)
+
+    lista_sent    go to state 45
+    sent          go to state 46
+    asig          go to state 47
+    haz_mientras  go to state 48
+    si            go to state 49
+    para          go to state 50
+    dev           go to state 51
+
+
+State 36
+
+   18 lista_dec: dec_global lista_dec •
+
+    $default  reduce using rule 18 (lista_dec)
+
+
+State 37
+
+   11 func: tipo ATOM_ID ATOM_PAR_IZQ arg ATOM_PAR_DER ATOM_COR_IZQ cuerpo ATOM_COR_DER •
+
+    $default  reduce using rule 11 (func)
+
+
+State 38
+
+   29 asig: ATOM_ID • op_asig ATOM_PUNTO_COMA
+
+    ATOM_ASIG    shift, and go to state 52
+    ATOM_OPASIG  shift, and go to state 53
+
+    op_asig         go to state 54
+    op_asig_simple  go to state 55
+    op_asig_comp    go to state 56
+
+
+State 39
+
+   69 haz_mientras: ATOM_HAZ • ATOM_COR_IZQ lista_sent ATOM_COR_DER ATOM_MIENTRAS ATOM_PAR_IZQ exp_rel ATOM_PAR_DER
+
+    ATOM_COR_IZQ  shift, and go to state 57
+
+
+State 40
+
+   70 si: ATOM_SI • ATOM_PAR_IZQ exp_rel ATOM_PAR_DER ATOM_COR_IZQ lista_sent ATOM_COR_DER sino
+
+    ATOM_PAR_IZQ  shift, and go to state 58
+
+
+State 41
+
+   73 para: ATOM_PARA • ATOM_PAR_IZQ expr ATOM_PAR_DER ATOM_COR_IZQ lista_sent ATOM_COR_DER
+
+    ATOM_PAR_IZQ  shift, and go to state 59
+
+
+State 42
+
+   74 dev: ATOM_DEV • ATOM_PAR_IZQ val_ret ATOM_PAR_DER ATOM_PUNTO
+
+    ATOM_PAR_IZQ  shift, and go to state 60
+
+
+State 43
+
+   27 sent: ATOM_CONTINUAR • ATOM_PUNTO
+
+    ATOM_PUNTO  shift, and go to state 61
+
+
+State 44
+
+   28 sent: ATOM_PARAR • ATOM_PUNTO
+
+    ATOM_PUNTO  shift, and go to state 62
+
+
+State 45
+
+   17 cuerpo: lista_dec lista_sent •
+
+    $default  reduce using rule 17 (cuerpo)
+
+
+State 46
+
+   20 lista_sent: sent • lista_sent
+
+    ATOM_ID         shift, and go to state 38
+    ATOM_HAZ        shift, and go to state 39
+    ATOM_SI         shift, and go to state 40
+    ATOM_PARA       shift, and go to state 41
+    ATOM_DEV        shift, and go to state 42
+    ATOM_CONTINUAR  shift, and go to state 43
+    ATOM_PARAR      shift, and go to state 44
+
+    $default  reduce using rule 21 (lista_sent)
+
+    lista_sent    go to state 63
+    sent          go to state 46
+    asig          go to state 47
+    haz_mientras  go to state 48
+    si            go to state 49
+    para          go to state 50
+    dev           go to state 51
+
+
+State 47
+
+   22 sent: asig •
+
+    $default  reduce using rule 22 (sent)
+
+
+State 48
+
+   23 sent: haz_mientras •
+
+    $default  reduce using rule 23 (sent)
+
+
+State 49
+
+   24 sent: si •
+
+    $default  reduce using rule 24 (sent)
+
+
+State 50
+
+   25 sent: para •
+
+    $default  reduce using rule 25 (sent)
+
+
+State 51
+
+   26 sent: dev •
+
+    $default  reduce using rule 26 (sent)
+
+
+State 52
+
+   32 op_asig_simple: ATOM_ASIG •
+
+    $default  reduce using rule 32 (op_asig_simple)
+
+
+State 53
+
+   33 op_asig_comp: ATOM_OPASIG •
+
+    $default  reduce using rule 33 (op_asig_comp)
+
+
+State 54
+
+   29 asig: ATOM_ID op_asig • ATOM_PUNTO_COMA
+
+    ATOM_PUNTO_COMA  shift, and go to state 64
+
+
+State 55
+
+   30 op_asig: op_asig_simple • expr_gral
+
+    ATOM_ID         shift, and go to state 65
+    ATOM_PAR_IZQ    shift, and go to state 66
+    ATOM_LLAVE_IZQ  shift, and go to state 67
+    ATOM_CADENA     shift, and go to state 68
+    ATOM_FALS       shift, and go to state 69
+    ATOM_VER        shift, and go to state 70
+    ATOM_NULO       shift, and go to state 71
+    ATOM_ENTERO     shift, and go to state 72
+    ATOM_REAL       shift, and go to state 73
+
+    expr_gral   go to state 74
+    expr        go to state 75
+    term        go to state 76
+    factor      go to state 77
+    llama_func  go to state 78
+
+
+State 56
+
+   31 op_asig: op_asig_comp • expr_gral
+
+    ATOM_ID         shift, and go to state 65
+    ATOM_PAR_IZQ    shift, and go to state 66
+    ATOM_LLAVE_IZQ  shift, and go to state 67
+    ATOM_CADENA     shift, and go to state 68
+    ATOM_FALS       shift, and go to state 69
+    ATOM_VER        shift, and go to state 70
+    ATOM_NULO       shift, and go to state 71
+    ATOM_ENTERO     shift, and go to state 72
+    ATOM_REAL       shift, and go to state 73
+
+    expr_gral   go to state 79
+    expr        go to state 75
+    term        go to state 76
+    factor      go to state 77
+    llama_func  go to state 78
+
+
+State 57
+
+   69 haz_mientras: ATOM_HAZ ATOM_COR_IZQ • lista_sent ATOM_COR_DER ATOM_MIENTRAS ATOM_PAR_IZQ exp_rel ATOM_PAR_DER
+
+    ATOM_ID         shift, and go to state 38
+    ATOM_HAZ        shift, and go to state 39
+    ATOM_SI         shift, and go to state 40
+    ATOM_PARA       shift, and go to state 41
+    ATOM_DEV        shift, and go to state 42
+    ATOM_CONTINUAR  shift, and go to state 43
+    ATOM_PARAR      shift, and go to state 44
+
+    $default  reduce using rule 21 (lista_sent)
+
+    lista_sent    go to state 80
+    sent          go to state 46
+    asig          go to state 47
+    haz_mientras  go to state 48
+    si            go to state 49
+    para          go to state 50
+    dev           go to state 51
+
+
+State 58
+
+   70 si: ATOM_SI ATOM_PAR_IZQ • exp_rel ATOM_PAR_DER ATOM_COR_IZQ lista_sent ATOM_COR_DER sino
+
+    ATOM_ID         shift, and go to state 65
+    ATOM_PAR_IZQ    shift, and go to state 66
+    ATOM_LLAVE_IZQ  shift, and go to state 67
+    ATOM_ENTERO     shift, and go to state 72
+    ATOM_REAL       shift, and go to state 73
+
+    expr        go to state 81
+    term        go to state 76
+    factor      go to state 77
+    llama_func  go to state 78
+    exp_rel     go to state 82
+
+
+State 59
+
+   73 para: ATOM_PARA ATOM_PAR_IZQ • expr ATOM_PAR_DER ATOM_COR_IZQ lista_sent ATOM_COR_DER
+
+    ATOM_ID         shift, and go to state 65
+    ATOM_PAR_IZQ    shift, and go to state 66
+    ATOM_LLAVE_IZQ  shift, and go to state 67
+    ATOM_ENTERO     shift, and go to state 72
+    ATOM_REAL       shift, and go to state 73
+
+    expr        go to state 83
+    term        go to state 76
+    factor      go to state 77
+    llama_func  go to state 78
+
+
+State 60
+
+   74 dev: ATOM_DEV ATOM_PAR_IZQ • val_ret ATOM_PAR_DER ATOM_PUNTO
+
+    ATOM_ID         shift, and go to state 65
+    ATOM_PAR_IZQ    shift, and go to state 66
+    ATOM_LLAVE_IZQ  shift, and go to state 67
+    ATOM_CADENA     shift, and go to state 68
+    ATOM_FALS       shift, and go to state 69
+    ATOM_VER        shift, and go to state 70
+    ATOM_NULO       shift, and go to state 71
+    ATOM_ENTERO     shift, and go to state 72
+    ATOM_REAL       shift, and go to state 73
+
+    $default  reduce using rule 76 (val_ret)
+
+    expr_gral   go to state 84
+    expr        go to state 75
+    term        go to state 76
+    factor      go to state 77
+    llama_func  go to state 78
+    val_ret     go to state 85
+
+
+State 61
+
+   27 sent: ATOM_CONTINUAR ATOM_PUNTO •
+
+    $default  reduce using rule 27 (sent)
+
+
+State 62
+
+   28 sent: ATOM_PARAR ATOM_PUNTO •
+
+    $default  reduce using rule 28 (sent)
+
+
+State 63
+
+   20 lista_sent: sent lista_sent •
+
+    $default  reduce using rule 20 (lista_sent)
+
+
+State 64
+
+   29 asig: ATOM_ID op_asig ATOM_PUNTO_COMA •
+
+    $default  reduce using rule 29 (asig)
+
+
+State 65
+
+   51 factor: ATOM_ID • factor_prime
+
+    ATOM_INC  shift, and go to state 86
+    ATOM_DEC  shift, and go to state 87
+
+    factor_prime  go to state 88
+
+
+State 66
+
+   50 factor: ATOM_PAR_IZQ • expr ATOM_PAR_DER
+
+    ATOM_ID         shift, and go to state 65
+    ATOM_PAR_IZQ    shift, and go to state 66
+    ATOM_LLAVE_IZQ  shift, and go to state 67
+    ATOM_ENTERO     shift, and go to state 72
+    ATOM_REAL       shift, and go to state 73
+
+    expr        go to state 89
+    term        go to state 76
+    factor      go to state 77
+    llama_func  go to state 78
+
+
+State 67
+
+   57 llama_func: ATOM_LLAVE_IZQ • ATOM_ID ATOM_PAR_IZQ list_param ATOM_PAR_DER ATOM_LLAVE_DER
+
+    ATOM_ID  shift, and go to state 90
+
+
+State 68
+
+   34 expr_gral: ATOM_CADENA •
+
+    $default  reduce using rule 34 (expr_gral)
+
+
+State 69
+
+   35 expr_gral: ATOM_FALS •
+
+    $default  reduce using rule 35 (expr_gral)
+
+
+State 70
+
+   36 expr_gral: ATOM_VER •
+
+    $default  reduce using rule 36 (expr_gral)
+
+
+State 71
+
+   37 expr_gral: ATOM_NULO •
+
+    $default  reduce using rule 37 (expr_gral)
+
+
+State 72
+
+   52 factor: ATOM_ENTERO •
+
+    $default  reduce using rule 52 (factor)
+
+
+State 73
+
+   53 factor: ATOM_REAL •
+
+    $default  reduce using rule 53 (factor)
+
+
+State 74
+
+   30 op_asig: op_asig_simple expr_gral •
+
+    $default  reduce using rule 30 (op_asig)
+
+
+State 75
+
+   38 expr_gral: expr •
+
+    $default  reduce using rule 38 (expr_gral)
+
+
+State 76
+
+   39 expr: term • expr_prime
+
+    '+'  shift, and go to state 91
+    '-'  shift, and go to state 92
+
+    $default  reduce using rule 42 (expr_prime)
+
+    expr_prime  go to state 93
+
+
+State 77
+
+   43 term: factor • term_prime
+
+    '*'  shift, and go to state 94
+    '/'  shift, and go to state 95
+    '%'  shift, and go to state 96
+    '~'  shift, and go to state 97
+    'k'  shift, and go to state 98
+
+    $default  reduce using rule 49 (term_prime)
+
+    term_prime  go to state 99
+
+
+State 78
+
+   54 factor: llama_func •
+
+    $default  reduce using rule 54 (factor)
+
+
+State 79
+
+   31 op_asig: op_asig_comp expr_gral •
+
+    $default  reduce using rule 31 (op_asig)
+
+
+State 80
+
+   69 haz_mientras: ATOM_HAZ ATOM_COR_IZQ lista_sent • ATOM_COR_DER ATOM_MIENTRAS ATOM_PAR_IZQ exp_rel ATOM_PAR_DER
+
+    ATOM_COR_DER  shift, and go to state 100
+
+
+State 81
+
+   62 exp_rel: expr • op_rel expr
+
+    '>'  shift, and go to state 101
+    '<'  shift, and go to state 102
+    'i'  shift, and go to state 103
+    '!'  shift, and go to state 104
+    'x'  shift, and go to state 105
+    'y'  shift, and go to state 106
+
+    op_rel  go to state 107
+
+
+State 82
+
+   70 si: ATOM_SI ATOM_PAR_IZQ exp_rel • ATOM_PAR_DER ATOM_COR_IZQ lista_sent ATOM_COR_DER sino
+
+    ATOM_PAR_DER  shift, and go to state 108
+
+
+State 83
+
+   73 para: ATOM_PARA ATOM_PAR_IZQ expr • ATOM_PAR_DER ATOM_COR_IZQ lista_sent ATOM_COR_DER
+
+    ATOM_PAR_DER  shift, and go to state 109
+
+
+State 84
+
+   75 val_ret: expr_gral •
+
+    $default  reduce using rule 75 (val_ret)
+
+
+State 85
+
+   74 dev: ATOM_DEV ATOM_PAR_IZQ val_ret • ATOM_PAR_DER ATOM_PUNTO
+
+    ATOM_PAR_DER  shift, and go to state 110
+
+
+State 86
+
+   55 factor_prime: ATOM_INC •
+
+    $default  reduce using rule 55 (factor_prime)
+
+
+State 87
+
+   56 factor_prime: ATOM_DEC •
+
+    $default  reduce using rule 56 (factor_prime)
+
+
+State 88
+
+   51 factor: ATOM_ID factor_prime •
+
+    $default  reduce using rule 51 (factor)
+
+
+State 89
+
+   50 factor: ATOM_PAR_IZQ expr • ATOM_PAR_DER
+
+    ATOM_PAR_DER  shift, and go to state 111
+
+
+State 90
+
+   57 llama_func: ATOM_LLAVE_IZQ ATOM_ID • ATOM_PAR_IZQ list_param ATOM_PAR_DER ATOM_LLAVE_DER
+
+    ATOM_PAR_IZQ  shift, and go to state 112
+
+
+State 91
+
+   40 expr_prime: '+' • term expr_prime
+
+    ATOM_ID         shift, and go to state 65
+    ATOM_PAR_IZQ    shift, and go to state 66
+    ATOM_LLAVE_IZQ  shift, and go to state 67
+    ATOM_ENTERO     shift, and go to state 72
+    ATOM_REAL       shift, and go to state 73
+
+    term        go to state 113
+    factor      go to state 77
+    llama_func  go to state 78
+
+
+State 92
+
+   41 expr_prime: '-' • term expr_prime
+
+    ATOM_ID         shift, and go to state 65
+    ATOM_PAR_IZQ    shift, and go to state 66
+    ATOM_LLAVE_IZQ  shift, and go to state 67
+    ATOM_ENTERO     shift, and go to state 72
+    ATOM_REAL       shift, and go to state 73
+
+    term        go to state 114
+    factor      go to state 77
+    llama_func  go to state 78
+
+
+State 93
+
+   39 expr: term expr_prime •
+
+    $default  reduce using rule 39 (expr)
+
+
+State 94
+
+   44 term_prime: '*' • factor term_prime
+
+    ATOM_ID         shift, and go to state 65
+    ATOM_PAR_IZQ    shift, and go to state 66
+    ATOM_LLAVE_IZQ  shift, and go to state 67
+    ATOM_ENTERO     shift, and go to state 72
+    ATOM_REAL       shift, and go to state 73
+
+    factor      go to state 115
+    llama_func  go to state 78
+
+
+State 95
+
+   45 term_prime: '/' • factor term_prime
+
+    ATOM_ID         shift, and go to state 65
+    ATOM_PAR_IZQ    shift, and go to state 66
+    ATOM_LLAVE_IZQ  shift, and go to state 67
+    ATOM_ENTERO     shift, and go to state 72
+    ATOM_REAL       shift, and go to state 73
+
+    factor      go to state 116
+    llama_func  go to state 78
+
+
+State 96
+
+   46 term_prime: '%' • factor term_prime
+
+    ATOM_ID         shift, and go to state 65
+    ATOM_PAR_IZQ    shift, and go to state 66
+    ATOM_LLAVE_IZQ  shift, and go to state 67
+    ATOM_ENTERO     shift, and go to state 72
+    ATOM_REAL       shift, and go to state 73
+
+    factor      go to state 117
+    llama_func  go to state 78
+
+
+State 97
+
+   47 term_prime: '~' • factor term_prime
+
+    ATOM_ID         shift, and go to state 65
+    ATOM_PAR_IZQ    shift, and go to state 66
+    ATOM_LLAVE_IZQ  shift, and go to state 67
+    ATOM_ENTERO     shift, and go to state 72
+    ATOM_REAL       shift, and go to state 73
+
+    factor      go to state 118
+    llama_func  go to state 78
+
+
+State 98
+
+   48 term_prime: 'k' • factor term_prime
+
+    ATOM_ID         shift, and go to state 65
+    ATOM_PAR_IZQ    shift, and go to state 66
+    ATOM_LLAVE_IZQ  shift, and go to state 67
+    ATOM_ENTERO     shift, and go to state 72
+    ATOM_REAL       shift, and go to state 73
+
+    factor      go to state 119
+    llama_func  go to state 78
+
+
+State 99
+
+   43 term: factor term_prime •
+
+    $default  reduce using rule 43 (term)
+
+
+State 100
+
+   69 haz_mientras: ATOM_HAZ ATOM_COR_IZQ lista_sent ATOM_COR_DER • ATOM_MIENTRAS ATOM_PAR_IZQ exp_rel ATOM_PAR_DER
+
+    ATOM_MIENTRAS  shift, and go to state 120
+
+
+State 101
+
+   63 op_rel: '>' •
+
+    $default  reduce using rule 63 (op_rel)
+
+
+State 102
+
+   64 op_rel: '<' •
+
+    $default  reduce using rule 64 (op_rel)
+
+
+State 103
+
+   65 op_rel: 'i' •
+
+    $default  reduce using rule 65 (op_rel)
+
+
+State 104
+
+   66 op_rel: '!' •
+
+    $default  reduce using rule 66 (op_rel)
+
+
+State 105
+
+   67 op_rel: 'x' •
+
+    $default  reduce using rule 67 (op_rel)
+
+
+State 106
+
+   68 op_rel: 'y' •
+
+    $default  reduce using rule 68 (op_rel)
+
+
+State 107
+
+   62 exp_rel: expr op_rel • expr
+
+    ATOM_ID         shift, and go to state 65
+    ATOM_PAR_IZQ    shift, and go to state 66
+    ATOM_LLAVE_IZQ  shift, and go to state 67
+    ATOM_ENTERO     shift, and go to state 72
+    ATOM_REAL       shift, and go to state 73
+
+    expr        go to state 121
+    term        go to state 76
+    factor      go to state 77
+    llama_func  go to state 78
+
+
+State 108
+
+   70 si: ATOM_SI ATOM_PAR_IZQ exp_rel ATOM_PAR_DER • ATOM_COR_IZQ lista_sent ATOM_COR_DER sino
+
+    ATOM_COR_IZQ  shift, and go to state 122
+
+
+State 109
+
+   73 para: ATOM_PARA ATOM_PAR_IZQ expr ATOM_PAR_DER • ATOM_COR_IZQ lista_sent ATOM_COR_DER
+
+    ATOM_COR_IZQ  shift, and go to state 123
+
+
+State 110
+
+   74 dev: ATOM_DEV ATOM_PAR_IZQ val_ret ATOM_PAR_DER • ATOM_PUNTO
+
+    ATOM_PUNTO  shift, and go to state 124
+
+
+State 111
+
+   50 factor: ATOM_PAR_IZQ expr ATOM_PAR_DER •
+
+    $default  reduce using rule 50 (factor)
+
+
+State 112
+
+   57 llama_func: ATOM_LLAVE_IZQ ATOM_ID ATOM_PAR_IZQ • list_param ATOM_PAR_DER ATOM_LLAVE_DER
+
+    ATOM_ID         shift, and go to state 65
+    ATOM_PAR_IZQ    shift, and go to state 66
+    ATOM_LLAVE_IZQ  shift, and go to state 67
+    ATOM_CADENA     shift, and go to state 68
+    ATOM_FALS       shift, and go to state 69
+    ATOM_VER        shift, and go to state 70
+    ATOM_NULO       shift, and go to state 71
+    ATOM_ENTERO     shift, and go to state 72
+    ATOM_REAL       shift, and go to state 73
+
+    $default  reduce using rule 59 (list_param)
+
+    expr_gral   go to state 125
+    expr        go to state 75
+    term        go to state 76
+    factor      go to state 77
+    llama_func  go to state 78
+    list_param  go to state 126
+
+
+State 113
+
+   40 expr_prime: '+' term • expr_prime
+
+    '+'  shift, and go to state 91
+    '-'  shift, and go to state 92
+
+    $default  reduce using rule 42 (expr_prime)
+
+    expr_prime  go to state 127
+
+
+State 114
+
+   41 expr_prime: '-' term • expr_prime
+
+    '+'  shift, and go to state 91
+    '-'  shift, and go to state 92
+
+    $default  reduce using rule 42 (expr_prime)
+
+    expr_prime  go to state 128
+
+
+State 115
+
+   44 term_prime: '*' factor • term_prime
+
+    '*'  shift, and go to state 94
+    '/'  shift, and go to state 95
+    '%'  shift, and go to state 96
+    '~'  shift, and go to state 97
+    'k'  shift, and go to state 98
+
+    $default  reduce using rule 49 (term_prime)
+
+    term_prime  go to state 129
+
+
+State 116
+
+   45 term_prime: '/' factor • term_prime
+
+    '*'  shift, and go to state 94
+    '/'  shift, and go to state 95
+    '%'  shift, and go to state 96
+    '~'  shift, and go to state 97
+    'k'  shift, and go to state 98
+
+    $default  reduce using rule 49 (term_prime)
+
+    term_prime  go to state 130
+
+
+State 117
+
+   46 term_prime: '%' factor • term_prime
+
+    '*'  shift, and go to state 94
+    '/'  shift, and go to state 95
+    '%'  shift, and go to state 96
+    '~'  shift, and go to state 97
+    'k'  shift, and go to state 98
+
+    $default  reduce using rule 49 (term_prime)
+
+    term_prime  go to state 131
+
+
+State 118
+
+   47 term_prime: '~' factor • term_prime
+
+    '*'  shift, and go to state 94
+    '/'  shift, and go to state 95
+    '%'  shift, and go to state 96
+    '~'  shift, and go to state 97
+    'k'  shift, and go to state 98
+
+    $default  reduce using rule 49 (term_prime)
+
+    term_prime  go to state 132
+
+
+State 119
+
+   48 term_prime: 'k' factor • term_prime
+
+    '*'  shift, and go to state 94
+    '/'  shift, and go to state 95
+    '%'  shift, and go to state 96
+    '~'  shift, and go to state 97
+    'k'  shift, and go to state 98
+
+    $default  reduce using rule 49 (term_prime)
+
+    term_prime  go to state 133
+
+
+State 120
+
+   69 haz_mientras: ATOM_HAZ ATOM_COR_IZQ lista_sent ATOM_COR_DER ATOM_MIENTRAS • ATOM_PAR_IZQ exp_rel ATOM_PAR_DER
+
+    ATOM_PAR_IZQ  shift, and go to state 134
+
+
+State 121
+
+   62 exp_rel: expr op_rel expr •
+
+    $default  reduce using rule 62 (exp_rel)
+
+
+State 122
+
+   70 si: ATOM_SI ATOM_PAR_IZQ exp_rel ATOM_PAR_DER ATOM_COR_IZQ • lista_sent ATOM_COR_DER sino
+
+    ATOM_ID         shift, and go to state 38
+    ATOM_HAZ        shift, and go to state 39
+    ATOM_SI         shift, and go to state 40
+    ATOM_PARA       shift, and go to state 41
+    ATOM_DEV        shift, and go to state 42
+    ATOM_CONTINUAR  shift, and go to state 43
+    ATOM_PARAR      shift, and go to state 44
+
+    $default  reduce using rule 21 (lista_sent)
+
+    lista_sent    go to state 135
+    sent          go to state 46
+    asig          go to state 47
+    haz_mientras  go to state 48
+    si            go to state 49
+    para          go to state 50
+    dev           go to state 51
+
+
+State 123
+
+   73 para: ATOM_PARA ATOM_PAR_IZQ expr ATOM_PAR_DER ATOM_COR_IZQ • lista_sent ATOM_COR_DER
+
+    ATOM_ID         shift, and go to state 38
+    ATOM_HAZ        shift, and go to state 39
+    ATOM_SI         shift, and go to state 40
+    ATOM_PARA       shift, and go to state 41
+    ATOM_DEV        shift, and go to state 42
+    ATOM_CONTINUAR  shift, and go to state 43
+    ATOM_PARAR      shift, and go to state 44
+
+    $default  reduce using rule 21 (lista_sent)
+
+    lista_sent    go to state 136
+    sent          go to state 46
+    asig          go to state 47
+    haz_mientras  go to state 48
+    si            go to state 49
+    para          go to state 50
+    dev           go to state 51
+
+
+State 124
+
+   74 dev: ATOM_DEV ATOM_PAR_IZQ val_ret ATOM_PAR_DER ATOM_PUNTO •
+
+    $default  reduce using rule 74 (dev)
+
+
+State 125
+
+   58 list_param: expr_gral • param
+
+    ATOM_COMA  shift, and go to state 137
+
+    $default  reduce using rule 61 (param)
+
+    param  go to state 138
+
+
+State 126
+
+   57 llama_func: ATOM_LLAVE_IZQ ATOM_ID ATOM_PAR_IZQ list_param • ATOM_PAR_DER ATOM_LLAVE_DER
+
+    ATOM_PAR_DER  shift, and go to state 139
+
+
+State 127
+
+   40 expr_prime: '+' term expr_prime •
+
+    $default  reduce using rule 40 (expr_prime)
+
+
+State 128
+
+   41 expr_prime: '-' term expr_prime •
+
+    $default  reduce using rule 41 (expr_prime)
+
+
+State 129
+
+   44 term_prime: '*' factor term_prime •
+
+    $default  reduce using rule 44 (term_prime)
+
+
+State 130
+
+   45 term_prime: '/' factor term_prime •
+
+    $default  reduce using rule 45 (term_prime)
+
+
+State 131
+
+   46 term_prime: '%' factor term_prime •
+
+    $default  reduce using rule 46 (term_prime)
+
+
+State 132
+
+   47 term_prime: '~' factor term_prime •
+
+    $default  reduce using rule 47 (term_prime)
+
+
+State 133
+
+   48 term_prime: 'k' factor term_prime •
+
+    $default  reduce using rule 48 (term_prime)
+
+
+State 134
+
+   69 haz_mientras: ATOM_HAZ ATOM_COR_IZQ lista_sent ATOM_COR_DER ATOM_MIENTRAS ATOM_PAR_IZQ • exp_rel ATOM_PAR_DER
+
+    ATOM_ID         shift, and go to state 65
+    ATOM_PAR_IZQ    shift, and go to state 66
+    ATOM_LLAVE_IZQ  shift, and go to state 67
+    ATOM_ENTERO     shift, and go to state 72
+    ATOM_REAL       shift, and go to state 73
+
+    expr        go to state 81
+    term        go to state 76
+    factor      go to state 77
+    llama_func  go to state 78
+    exp_rel     go to state 140
+
+
+State 135
+
+   70 si: ATOM_SI ATOM_PAR_IZQ exp_rel ATOM_PAR_DER ATOM_COR_IZQ lista_sent • ATOM_COR_DER sino
+
+    ATOM_COR_DER  shift, and go to state 141
+
+
+State 136
+
+   73 para: ATOM_PARA ATOM_PAR_IZQ expr ATOM_PAR_DER ATOM_COR_IZQ lista_sent • ATOM_COR_DER
+
+    ATOM_COR_DER  shift, and go to state 142
+
+
+State 137
+
+   60 param: ATOM_COMA • expr_gral param
+
+    ATOM_ID         shift, and go to state 65
+    ATOM_PAR_IZQ    shift, and go to state 66
+    ATOM_LLAVE_IZQ  shift, and go to state 67
+    ATOM_CADENA     shift, and go to state 68
+    ATOM_FALS       shift, and go to state 69
+    ATOM_VER        shift, and go to state 70
+    ATOM_NULO       shift, and go to state 71
+    ATOM_ENTERO     shift, and go to state 72
+    ATOM_REAL       shift, and go to state 73
+
+    expr_gral   go to state 143
+    expr        go to state 75
+    term        go to state 76
+    factor      go to state 77
+    llama_func  go to state 78
+
+
+State 138
+
+   58 list_param: expr_gral param •
+
+    $default  reduce using rule 58 (list_param)
+
+
+State 139
+
+   57 llama_func: ATOM_LLAVE_IZQ ATOM_ID ATOM_PAR_IZQ list_param ATOM_PAR_DER • ATOM_LLAVE_DER
+
+    ATOM_LLAVE_DER  shift, and go to state 144
+
+
+State 140
+
+   69 haz_mientras: ATOM_HAZ ATOM_COR_IZQ lista_sent ATOM_COR_DER ATOM_MIENTRAS ATOM_PAR_IZQ exp_rel • ATOM_PAR_DER
+
+    ATOM_PAR_DER  shift, and go to state 145
+
+
+State 141
+
+   70 si: ATOM_SI ATOM_PAR_IZQ exp_rel ATOM_PAR_DER ATOM_COR_IZQ lista_sent ATOM_COR_DER • sino
+
+    ATOM_SINO  shift, and go to state 146
+
+    $default  reduce using rule 72 (sino)
+
+    sino  go to state 147
+
+
+State 142
+
+   73 para: ATOM_PARA ATOM_PAR_IZQ expr ATOM_PAR_DER ATOM_COR_IZQ lista_sent ATOM_COR_DER •
+
+    $default  reduce using rule 73 (para)
+
+
+State 143
+
+   60 param: ATOM_COMA expr_gral • param
+
+    ATOM_COMA  shift, and go to state 137
+
+    $default  reduce using rule 61 (param)
+
+    param  go to state 148
+
+
+State 144
+
+   57 llama_func: ATOM_LLAVE_IZQ ATOM_ID ATOM_PAR_IZQ list_param ATOM_PAR_DER ATOM_LLAVE_DER •
+
+    $default  reduce using rule 57 (llama_func)
+
+
+State 145
+
+   69 haz_mientras: ATOM_HAZ ATOM_COR_IZQ lista_sent ATOM_COR_DER ATOM_MIENTRAS ATOM_PAR_IZQ exp_rel ATOM_PAR_DER •
+
+    $default  reduce using rule 69 (haz_mientras)
+
+
+State 146
+
+   71 sino: ATOM_SINO • ATOM_COR_IZQ lista_sent ATOM_COR_DER
+
+    ATOM_COR_IZQ  shift, and go to state 149
+
+
+State 147
+
+   70 si: ATOM_SI ATOM_PAR_IZQ exp_rel ATOM_PAR_DER ATOM_COR_IZQ lista_sent ATOM_COR_DER sino •
+
+    $default  reduce using rule 70 (si)
+
+
+State 148
+
+   60 param: ATOM_COMA expr_gral param •
+
+    $default  reduce using rule 60 (param)
+
+
+State 149
+
+   71 sino: ATOM_SINO ATOM_COR_IZQ • lista_sent ATOM_COR_DER
+
+    ATOM_ID         shift, and go to state 38
+    ATOM_HAZ        shift, and go to state 39
+    ATOM_SI         shift, and go to state 40
+    ATOM_PARA       shift, and go to state 41
+    ATOM_DEV        shift, and go to state 42
+    ATOM_CONTINUAR  shift, and go to state 43
+    ATOM_PARAR      shift, and go to state 44
+
+    $default  reduce using rule 21 (lista_sent)
+
+    lista_sent    go to state 150
+    sent          go to state 46
+    asig          go to state 47
+    haz_mientras  go to state 48
+    si            go to state 49
+    para          go to state 50
+    dev           go to state 51
+
+
+State 150
+
+   71 sino: ATOM_SINO ATOM_COR_IZQ lista_sent • ATOM_COR_DER
+
+    ATOM_COR_DER  shift, and go to state 151
+
+
+State 151
+
+   71 sino: ATOM_SINO ATOM_COR_IZQ lista_sent ATOM_COR_DER •
+
+    $default  reduce using rule 71 (sino)

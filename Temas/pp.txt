@@ -1,0 +1,23 @@
+No sé qué ejercicio hiciste pero este es el que tenías que hacer:
+
+Actividad 4.1.3
+Ejercicio F.
+Obtén el conjunto de selección para cada producción de la siguiente gramática y determina si es
+gramática LL(1).
+1: B  -> D L I
+5: T  -> f
+9: L  -> ξ
+13: P  -> { I }
+2: D  -> T a V ;
+6: V  -> , a V
+10: I  -> s P
+14: P  -> ξ
+3: T  -> c
+7: V  -> ξ
+11: I  -> { P }
+4: T  -> i
+8: L  -> D L
+12: P  -> s P
+Ejercicio G.
+Realiza un análisis del porqué una gramática LL(1) no es recursiva por la izquierda. Tip: ¿Qué
+sucedería al calcular los conjuntos de selección? -> 
