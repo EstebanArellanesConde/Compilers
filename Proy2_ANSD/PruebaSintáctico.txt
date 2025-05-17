@@ -1,0 +1,19 @@
+// Declaración global
+g n @contador_;
+
+// Función simple
+n @duplicar_(n @x_) [
+    d(x * 2);
+]
+
+// Programa principal
+n @principal_() [
+    @valor_ = 5;
+    @resultado_ = {duplicar_(valor)};
+    
+    i (resultado > 7) [
+        d(--"Es mayor que 7"--);
+    ] l [
+        d(--"Es 7 o menor"--);
+    ]
+]
